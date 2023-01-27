@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
+import moment from 'moment'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -8,7 +9,10 @@ const supabaseAdmin = createClient(
 )
 
 export async function getStaticProps() {
-  const { data } = await supabaseAdmin.from('images').select('*').order('id')
+  const { data } = await supabaseAdmin
+    .from('images')
+    .select('*')
+    .order('created_at', { ascending: false })
   return {
     props: {
       images: data,
@@ -55,6 +59,7 @@ function BlurImage({ image }) {
           />
         </div>
         <h3 className='mt-4 text-sm text-gray-700'>{image.name}</h3>
+        <p>{moment(image.created_at).fromNow()}</p>
         <p className='mt-1 text-lg font-medium text-gray-900'>
           {image.userName}
         </p>
