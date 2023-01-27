@@ -58,8 +58,12 @@ function BlurImage({ image }) {
             onLoadingComplete={() => setIsLoading(false)}
           />
         </div>
-        <h3 className='mt-4 text-sm text-gray-700'>{image.name}</h3>
-        <p>{moment(image.created_at).fromNow()}</p>
+        <div className='flex items-center justify-between gap-3 mt-4 text-sm'>
+          <h3 className=' text-gray-700'>{image.name}</h3>
+          <span className='font-medium text-gray-500'>
+            {moment(image.created_at).fromNow()}
+          </span>
+        </div>
         <p className='mt-1 text-lg font-medium text-gray-900'>
           {image.userName}
         </p>
