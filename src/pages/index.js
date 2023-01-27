@@ -8,11 +8,12 @@ const supabaseAdmin = createClient(
 )
 
 export async function getStaticProps() {
-  const { data } = await supabaseAdmin.from('images').select('*')
+  const { data } = await supabaseAdmin.from('images').select('*').order('id')
   return {
     props: {
       images: data,
     },
+    revalidate: 2,
   }
 }
 
